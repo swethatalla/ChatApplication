@@ -10,5 +10,26 @@ Window {
 ChatForm{
     width:parent.width
     height:parent.height
+    user1_send.onClicked:  {
+        if(user1_msg.text.length>0){
+          userOneMessageview.messageText+="<b><font color=\"red\">Ian: </b>"+ user1_msg.text
+          userTwoMessageview.messageText+="<b><font color=\"red\">Ian: </b>"+ user1_msg.text
+
+            }
+
+
+        user1_msg.text="";
+
+        }
+
+    user2_send.onClicked:  {
+        if(user2_msg.text.length>0){
+            userOneMessageview.messageText+="<b><font color=\"blue\">Coding Challenge: </b>"+ user2_msg.text
+            userTwoMessageview.messageText+="<b><font color=\"blue\">Coding Challenge: </b>"+ user2_msg.text
+        user2_msg.text="";
+
+        }
+    }
+
 }
 }
