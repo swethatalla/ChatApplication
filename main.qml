@@ -52,6 +52,7 @@ ChatForm{
                        object.message=user1_msg.text;
                        object.sendMessage(username2.text);
                      userOneMessageview.messageText+="<b><font color=\"red\">"+username1.text+": </b>"+ user1_msg.text;
+            user1_msg.text="";
 
             }
         }
