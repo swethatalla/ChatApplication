@@ -8,6 +8,7 @@ Window {
     title: qsTr("Coding Challenge Chat Tool")
     property string message: ""
 ChatForm{
+    id:cf
     width:parent.width
     height:parent.height
     Component.onCompleted: {
@@ -27,23 +28,32 @@ ChatForm{
     object.registerUser(obj1);
     object.registerUser(obj2);
     }
+    Connections {
+        target: object
+     onUpdate: {
+        console.log(object.client);
+         if(object.client.username==="Ian")
+             cf.userOneMessageview.messageText+="<b><font color=\" "+ object.client.color+"\">"+from+": </b>"+ object.message;
+         else if(object.client.username==="Coding Challenge")
+             cf.userTwoMessageview.messageText+="<b><font color=\" "+ object.client.color+"\">"+from+": </b>"+ object.message;
+
+     }
+    }
+
     user1_send.onClicked:  {
         if(user1_msg.text.length>0){
-          userOneMessageview.messageText+="<b><font color=\"red\">Ian: </b>"+ user1_msg.text
-          userTwoMessageview.messageText+="<b><font color=\"red\">Ian: </b>"+ user1_msg.text
+            object.sendMessage("Ian","Coding Challenge",user1_msg.text);
+             userOneMessageview.messageText+="<b><font color=\"red\">Ian: </b>"+ user1_msg.text;
+               user1_msg.text="";
 
             }
-
-
-        user1_msg.text="";
-
         }
 
     user2_send.onClicked:  {
         if(user2_msg.text.length>0){
-            userOneMessageview.messageText+="<b><font color=\"blue\">Coding Challenge: </b>"+ user2_msg.text
-            userTwoMessageview.messageText+="<b><font color=\"blue\">Coding Challenge: </b>"+ user2_msg.text
-        user2_msg.text="";
+            object.sendMessage("Coding Challenge","Ian",user2_msg.text);
+            userTwoMessageview.messageText+="<b><font color=\"blue\">Coding Challenge: </b>"+ user2_msg.text;
+             user2_msg.text="";
 
         }
     }

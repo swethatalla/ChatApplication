@@ -35,3 +35,45 @@ void ChatServer::registerUser(const QVariant &user)
       }
     }
 }
+void ChatServer::sendMessage(const QVariant &from , const QVariant &to , const QVariant &message)
+{
+
+    MyStruct from1;
+    MyStruct to1;
+    std::map<string,struct MyStruct>::iterator it;
+    std::map<string,struct MyStruct>::iterator it1;
+
+    it = clients_.find(from.toString().toStdString());
+     if (it != clients_.end())
+     {
+         qDebug() << "in from user";
+     it1 = clients_.find(to.toString().toStdString());
+      if (it1 != clients_.end())
+      {
+          MyStruct from=it->second;
+
+          qDebug() << "in to user";
+          to1=it1->second;
+          to1.m_color=from.m_color;
+
+          setMyclient(to1);
+      }
+    setMessage(message);
+    emit update(from.toString(),to1,message);
+     }
+}
+
+QVariant ChatServer:: message(){
+    return v_message;
+}
+
+void ChatServer:: setMessage(const QVariant &msg)
+{
+    if(v_message==msg)
+    {
+        return;
+    }
+    v_message=msg;
+
+}
+
