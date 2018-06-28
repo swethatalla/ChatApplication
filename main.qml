@@ -6,9 +6,9 @@ Window {
     width: 640
     height: 480
     title: qsTr("Coding Challenge Chat Tool")
-    property string message: ""
 ChatForm{
     id:cf
+     property var color:["Red","Blue"];
     width:parent.width
     height:parent.height
     Component.onCompleted: {
@@ -17,25 +17,30 @@ ChatForm{
     }
     function registerUsers()
     {
-        var obj1 = {
-            'username':"Ian",
-            'color': "Red",
-        };
-        var obj2 = {
-            'username':"Coding Challenge",
-            'color': "Blue",
-        };
-    object.registerUser(obj1);
-    object.registerUser(obj2);
+        for (var i = 0; i < cf.children.length; i++)
+        {
+        console.log("item "+i);
+        console.log(cf.children[i].children[0].text);
+            var obj = {
+                'username':cf.children[i].children[0].text,
+                'color': color[i]
+            };
+            object.registerUser(obj);
+        }
     }
     Connections {
         target: object
      onUpdate: {
         console.log(object.client);
-         if(object.client.username==="Ian")
-             cf.userOneMessageview.messageText+="<b><font color=\" "+ object.client.color+"\">"+from+": </b>"+ object.message;
-         else if(object.client.username==="Coding Challenge")
-             cf.userTwoMessageview.messageText+="<b><font color=\" "+ object.client.color+"\">"+from+": </b>"+ object.message;
+         for (var i = 0; i < cf.children.length; i++)
+         {
+         console.log("item "+i);
+         console.log(cf.children[i].children[0].text);
+         if(object.client.username===cf.children[i].children[0].text)
+         {
+             cf.children[i].children[3].messageText+="<b><font color=\" "+ object.client.color+"\">"+from+": </b>"+ object.message;
+         }
+         }
 
      }
     }
