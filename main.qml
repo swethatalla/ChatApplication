@@ -10,6 +10,23 @@ Window {
 ChatForm{
     width:parent.width
     height:parent.height
+    Component.onCompleted: {
+        registerUsers();
+
+    }
+    function registerUsers()
+    {
+        var obj1 = {
+            'username':"Ian",
+            'color': "Red",
+        };
+        var obj2 = {
+            'username':"Coding Challenge",
+            'color': "Blue",
+        };
+    object.registerUser(obj1);
+    object.registerUser(obj2);
+    }
     user1_send.onClicked:  {
         if(user1_msg.text.length>0){
           userOneMessageview.messageText+="<b><font color=\"red\">Ian: </b>"+ user1_msg.text
