@@ -21,13 +21,12 @@ void ChatServer::registerUser(const QVariant &user)
     it = clients_.find(userMap.value("username").toString().toStdString());
     if (it == clients_.end())
     {
-      qDebug() << "Setting user "+userMap.value("username").toString();
+      qDebug() << "Setting user"+userMap.value("username").toString();
       MyStruct user;
       user.m_color=userMap.value("color").toString();
       user.m_username=userMap.value("username").toString();
       setMyclient(user);
       clients_.insert(std::make_pair(getMyclient().m_username.toStdString(),getMyclient()));
-      qDebug() << "Users";
       for (std::map<string,struct MyStruct>::iterator it=clients_.begin(); it!=clients_.end(); ++it)
       {
           QString var =QString::fromStdString(it->first);
@@ -35,31 +34,31 @@ void ChatServer::registerUser(const QVariant &user)
       }
     }
 }
-void ChatServer::sendMessage(const QVariant &from , const QVariant &to , const QVariant &message)
+
+void ChatServer::sendMessage(const QVariant &to)
 {
 
     MyStruct from1;
     MyStruct to1;
     std::map<string,struct MyStruct>::iterator it;
     std::map<string,struct MyStruct>::iterator it1;
-
-    it = clients_.find(from.toString().toStdString());
+    QString from_user=getMyclient().m_username;
+    it = clients_.find(from_user.toStdString());
      if (it != clients_.end())
      {
-         qDebug() << "in from user";
+          qDebug() << "in from";
      it1 = clients_.find(to.toString().toStdString());
       if (it1 != clients_.end())
       {
           MyStruct from=it->second;
 
-          qDebug() << "in to user";
+          qDebug() << "in client";
           to1=it1->second;
           to1.m_color=from.m_color;
 
           setMyclient(to1);
       }
-    setMessage(message);
-    emit update(from.toString(),to1,message);
+    emit update(from_user);
      }
 }
 

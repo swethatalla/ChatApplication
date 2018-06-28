@@ -20,7 +20,7 @@ class ChatServer: public QObject
     Q_PROPERTY(QVariant message READ message WRITE setMessage NOTIFY update)
 public:
     Q_INVOKABLE void registerUser(const QVariant&  user);
-    Q_INVOKABLE void sendMessage(const QVariant&  from, const QVariant&  to, const QVariant&  msg);
+    Q_INVOKABLE void sendMessage(const QVariant&  to);
 
     QVariant message();
     void setMessage(const QVariant&);
@@ -31,7 +31,7 @@ public:
     explicit ChatServer(QObject *parent = nullptr);
 
 signals:
-    void update(const QString& from, const MyStruct&  to, const QVariant&);
+   void update(const QString& from);
 
 private:
     QVariant v_message;

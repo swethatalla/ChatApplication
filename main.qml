@@ -47,18 +47,23 @@ ChatForm{
 
     user1_send.onClicked:  {
         if(user1_msg.text.length>0){
-            object.sendMessage("Ian","Coding Challenge",user1_msg.text);
-             userOneMessageview.messageText+="<b><font color=\"red\">Ian: </b>"+ user1_msg.text;
-               user1_msg.text="";
+                        object.client.username=username1.text;
+                      object.client.color=color[0];
+                       object.message=user1_msg.text;
+                       object.sendMessage(username2.text);
+                     userOneMessageview.messageText+="<b><font color=\"red\">"+username1.text+": </b>"+ user1_msg.text;
 
             }
         }
 
     user2_send.onClicked:  {
         if(user2_msg.text.length>0){
-            object.sendMessage("Coding Challenge","Ian",user2_msg.text);
-            userTwoMessageview.messageText+="<b><font color=\"blue\">Coding Challenge: </b>"+ user2_msg.text;
-             user2_msg.text="";
+                       object.client.username=username2.text;
+                        object.client.color=color[1];
+                        object.message=user2_msg.text;
+                        object.sendMessage(username1.text);
+                        userTwoMessageview.messageText+="<b><font color=\"blue\">"+username2.text+": </b>"+ user2_msg.text;
+                        user2_msg.text="";
 
         }
     }
